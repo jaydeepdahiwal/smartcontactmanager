@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home page</title>
+</head>
+<body>
+
+<section>
+<div class="mycard text-center">
+	<h2>Login Form</h2>
+</div>
+<div class="row col-md-4 offset-md-4 mycard margin">
+    <form th:action="@{/dologin}" method="post" action="#">
+    <div th:if="${param.error}" class="alert alert-danger">
+    	Invalid username and password
+    </div>
+    
+     <div th:if="${param.logout}" class="alert alert-success">
+    	You've Successfully logout!
+    </div>
+    
+     <div th:if="${param.change}" class="alert alert-success">
+    	<p th:text="${param.change}"></p>
+    </div>
+    
+  <div class="mb-3">
+    <label for="username" class="form-label">Email address</label>
+    <input type="text" class="form-control" id="username" name="username">
+  </div>
+  
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password">
+  </div>
+  
+  <div class="mb-3 form-check">
+    <input type="checkbox" name="remember-me" class="form-check-input" id="remember-me">
+    <label class="form-check-label" for="remember-me">Remember me</label>
+    <a href="/signup/" class="link-primary textt">Register here</a>
+    <div class="container texttt">
+    	<a th:href="@{/forgot}">Forgot Password?</a>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+    </section>
+</body>
+</html>

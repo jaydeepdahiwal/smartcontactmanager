@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="title"></title>
+</head>
+<body>
+
+	<section>
+		<div class="container mt-3">
+			<div class="row col-md-6 offset-md-3">
+				<div class="mycard">
+				<div class="alert" th:classappend="${session.message.type}" role="alert" th:if="${session.message}">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				 </div>
+					<h2 class="text-center">Signup Form</h2>
+					<form novalidate th:action="@{/do_register}" method="post" th:object="${user}">
+						<div class="mb-3">
+                            <label for="name_field" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" th:value="${user.name}" name="name" th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}" id="name_field" aria-describedby="emailHelp" placeholder="Enter here" required="required">
+                            <div class="invalid-feedback" th:each="e: ${#fields.errors('name')}" th:text="${e}"></div>
+                        </div>
+						<div class="mb-3">
+                            <label for="email_field" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" th:value="${user.email}" name="email" id="email_field" aria-describedby="emailHelp" placeholder="Enter here" required="required">
+                        </div>
+						<div class="mb-3">
+                            <label for="password_field" class="form-label">Your Password</label>
+                            <input type="password" class="form-control" name="password" id="password_field" aria-describedby="emailHelp" placeholder="Enter here" required="required">
+                        </div>
+                <div class="form-group">
+              		<textarea class="form-control" name="about" th:text="${user.about}" rows="10" placeholder="Enter Something About Yourself"></textarea>
+                </div>
+                
+                <div class="form-group form-check">
+                	<input type="checkbox" name="agreement" class="form-check-input" id="agreement" />
+                	<label for="agreement">Accept terms and conditions</label>
+                </div>
+                
+               <div class="container text-center">
+               	<button class="btn mt-2 bg-primary text-white" type="submit">Submit</button>
+               	<button class="btn mt-2 btn-warning text-white" type="reset">Reset</button>
+               </div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+</body>
+</html>
